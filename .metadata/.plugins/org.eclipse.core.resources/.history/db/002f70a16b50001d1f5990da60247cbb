@@ -43,7 +43,7 @@ public class JavaEchoClient {
 	        	if (buf.contains("exit"))
 	        		break;
 
-	        	// server에서 수신한 후
+	        	// server에서 수신하고
 	        	String msg;
 	        	//msg = dis.readUTF();
 	        	
