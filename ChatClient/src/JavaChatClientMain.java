@@ -88,7 +88,9 @@ public class JavaChatClientMain extends JFrame {
 		txtIpAddress.addActionListener(action);
 		txtPortNumber.addActionListener(action);
 	}
-	class Myaction implements ActionListener // 내부클래스로 액션 이벤트 처리 클래스
+	
+	// 버튼(엔터) 누를시 아래 실행
+	class Myaction implements ActionListener // 내부클래스로 액션 이벤트 처리 클래스 
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -96,7 +98,7 @@ public class JavaChatClientMain extends JFrame {
 			String ip_addr = txtIpAddress.getText().trim();
 			String port_no = txtPortNumber.getText().trim();
 			JavaChatClientView view = new JavaChatClientView(username, ip_addr, port_no);
-			setVisible(false);
+			setVisible(false); // 첫 화면 닫힌 후 다음화면 표시
 		}
 	}
 }

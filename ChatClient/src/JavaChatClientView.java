@@ -69,7 +69,9 @@ public class JavaChatClientView extends JFrame {
 		lblUserName.setBounds(12, 364, 67, 40);
 		contentPane.add(lblUserName);
 		setVisible(true);
-	
+		
+		
+		// 넘어온다
 		AppendText("User " + username + " connecting " + ip_addr + " " + port_no);
 		UserName = username;
 		lblUserName.setText(username + ">");
@@ -82,7 +84,7 @@ public class JavaChatClientView extends JFrame {
 			dos = new DataOutputStream(os);
 			
 			SendMessage("/login " + UserName);
-			ListenNetwork net = new ListenNetwork();
+			ListenNetwork net = new ListenNetwork(); // 
 			net.start();
 			Myaction action = new Myaction();
 			btnSend.addActionListener(action); // 내부클래스로 액션 리스너를 상속받은 클래스로
@@ -103,7 +105,7 @@ public class JavaChatClientView extends JFrame {
 					// String msg = dis.readUTF();
 					byte[] b = new byte[BUF_LEN];
 					int ret;
-					ret = dis.read(b);
+					ret = dis.read(b); // read one
 					if (ret < 0) {
 						AppendText("dis.read() < 0 error");
 						try {
@@ -142,7 +144,7 @@ public class JavaChatClientView extends JFrame {
 			if (e.getSource() == btnSend || e.getSource() == txtInput) {
 				String msg = null;
 				msg = String.format("[%s] %s\n", UserName, txtInput.getText());
-				SendMessage(msg);
+				SendMessage(msg); // send
 				txtInput.setText(""); // 메세지를 보내고 나면 메세지 쓰는창을 비운다.
 				txtInput.requestFocus(); // 메세지를 보내고 커서를 다시 텍스트 필드로 위치시킨다
 				if (msg.contains("/exit")) // 종료 처리
@@ -153,7 +155,7 @@ public class JavaChatClientView extends JFrame {
 	// 화면에 출력
 	public void AppendText(String msg) {
 		textArea.append(msg + "\n");
-		textArea.setCaretPosition(textArea.getText().length());
+		textArea.setCaretPosition(textArea.getText().length()); // 커서 맨 밑으로
 	}
 
 	// Windows 처럼 message 제외한 나머지 부분은 NULL 로 만들기 위한 함수
@@ -178,8 +180,8 @@ public class JavaChatClientView extends JFrame {
 	// Server에게 network으로 전송
 	public void SendMessage(String msg) {
 		try {
-			// dos.writeUTF(msg);
-			byte[] bb;
+			// dos.writeUTF(msg);   // UTF사용시 C와 연동 불가
+			byte[] bb; 
 			bb = MakePacket(msg);
 			dos.write(bb, 0, bb.length);
 		} catch (IOException e) {

@@ -85,11 +85,11 @@ public class JavaChatServer extends JFrame {
 		contentPane.add(txtPortNumber);
 		txtPortNumber.setColumns(10);
 
-		JButton btnServerStart = new JButton("Server Start");
+		JButton btnServerStart = new JButton("Server Start"); // 버튼 누를시 서버실행(소켓생성)
 		btnServerStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					socket = new ServerSocket(Integer.parseInt(txtPortNumber.getText()));
+					socket = new ServerSocket(Integer.parseInt(txtPortNumber.getText())); // accept
 				} catch (NumberFormatException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -116,7 +116,7 @@ public class JavaChatServer extends JFrame {
 					client_socket = socket.accept(); // accept가 일어나기 전까지는 무한 대기중
 					AppendText("새로운 참가자 from " + client_socket);
 					// User 당 하나씩 Thread 생성
-					UserService new_user = new UserService(client_socket);
+					UserService new_user = new UserService(client_socket); // user thread 생성
 					UserVec.add(new_user); // 새로운 참가자 배열에 추가
 					AppendText("사용자 입장. 현재 참가자 수 " + UserVec.size());
 					new_user.start(); // 만든 객체의 스레드 실행
@@ -172,7 +172,7 @@ public class JavaChatServer extends JFrame {
 		// 모든 User들에게 방송. 각각의 UserService Thread의 WriteONe() 을 호출한다.
 		public void WriteAll(String str) {
 			for (int i = 0; i < user_vc.size(); i++) {
-				UserService user = (UserService) user_vc.elementAt(i);
+				UserService user = (UserService) user_vc.elementAt(i); // 각각의 유저 쓰레드에게
 				user.WriteOne(str);
 			}
 		}
@@ -201,7 +201,7 @@ public class JavaChatServer extends JFrame {
 				// dos.writeUTF(msg);
 				byte[] bb;
 				bb = MakePacket(msg);
-				dos.write(bb, 0, bb.length);
+				dos.write(bb, 0, bb.length); // send
 			} catch (IOException e) {
 				AppendText("dos.write() error");
 				try {
