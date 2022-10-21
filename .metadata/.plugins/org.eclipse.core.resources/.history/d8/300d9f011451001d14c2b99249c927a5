@@ -106,8 +106,6 @@ public class JavaChatServer extends JFrame {
 		contentPane.add(btnServerStart);
 	}
 
-	
-							//   수정 부분   //
 	// 새로운 참가자 accept() 하고 user thread를 새로 생성한다.
 	class AcceptServer extends Thread {
 		@SuppressWarnings("unchecked")
@@ -144,10 +142,8 @@ public class JavaChatServer extends JFrame {
 		private DataOutputStream dos;
 		private Socket client_socket;
 		private Vector user_vc;
-		public String UserName = ""; // public으로 하여 외부참조 가능
-		// (귓속말) /to 다음에 있는 userName과 비교하여 찾아서 보낸다
-		// (list) UserName 리스트를 send 한다
-		
+		private String UserName = "";
+
 		public UserService(Socket client_socket) {
 			// TODO Auto-generated constructor stub
 			// 매개변수로 넘어온 자료 저장
@@ -159,8 +155,7 @@ public class JavaChatServer extends JFrame {
 				os = client_socket.getOutputStream();
 				dos = new DataOutputStream(os);
 				// line1 = dis.readUTF();
-				// /login user1 ==> msg[0] msg[1]    /login은 msg[0]에 user1은 msg[1]에
-				
+				// /login user1 ==> msg[0] msg[1]
 				byte[] b = new byte[BUF_LEN];
 				dis.read(b);
 				String line1 = new String(b);
@@ -169,8 +164,6 @@ public class JavaChatServer extends JFrame {
 				AppendText("새로운 참가자 " + UserName + " 입장.");
 				WriteOne("Welcome to Java chat server\n");
 				WriteOne(UserName + "님 환영합니다.\n"); // 연결된 사용자에게 정상접속을 알림
-				// write all 구현
-				
 			} catch (Exception e) {
 				AppendText("userService error");
 			}
@@ -220,7 +213,6 @@ public class JavaChatServer extends JFrame {
 					e1.printStackTrace();
 				}
 				UserVec.removeElement(this); // 에러가난 현재 객체를 벡터에서 지운다
-				// 이때 writeall로 보내주기 구현
 				AppendText("사용자 퇴장. 현재 참가자 수 " + UserVec.size());
 			}
 		}
