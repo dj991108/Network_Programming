@@ -159,8 +159,7 @@ public class JavaChatServer extends JFrame {
 				os = client_socket.getOutputStream();
 				dos = new DataOutputStream(os);
 				// line1 = dis.readUTF();
-				// /login user1 ==> msg[0] msg[1]    /login은 msg[0]에 user1은 msg[1]에
-				
+				// /login user1 ==> msg[0] msg[1]
 				byte[] b = new byte[BUF_LEN];
 				dis.read(b);
 				String line1 = new String(b);
