@@ -36,6 +36,8 @@ public class JavaChatClientView extends JFrame {
 	private DataOutputStream dos;
 	private JLabel lblUserName;
 	
+	
+	// Main쪽 지운것
 	/**
 	 * Create the frame.
 	 */
@@ -83,8 +85,8 @@ public class JavaChatClientView extends JFrame {
 			os = socket.getOutputStream();
 			dos = new DataOutputStream(os);
 			
-			SendMessage("/login " + UserName);
-			ListenNetwork net = new ListenNetwork(); // 
+			SendMessage("/login " + UserName); // 로그인 후 /login + 이름 send
+			ListenNetwork net = new ListenNetwork(); // 서버 기다리는 쓰레드 생성
 			net.start();
 			Myaction action = new Myaction();
 			btnSend.addActionListener(action); // 내부클래스로 액션 리스너를 상속받은 클래스로
@@ -105,7 +107,7 @@ public class JavaChatClientView extends JFrame {
 					// String msg = dis.readUTF();
 					byte[] b = new byte[BUF_LEN];
 					int ret;
-					ret = dis.read(b); // read one
+					ret = dis.read(b); // 서버에서 온 메시지를 받는다 
 					if (ret < 0) {
 						AppendText("dis.read() < 0 error");
 						try {
@@ -136,12 +138,13 @@ public class JavaChatClientView extends JFrame {
 		}
 	}
 	// keyboard enter key 치면 서버로 전송
+					// 보내기 눌러졌을때 행해지는 로직
 	class Myaction implements ActionListener // 내부클래스로 액션 이벤트 처리 클래스
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Send button을 누르거나 메시지 입력하고 Enter key 치면
-			if (e.getSource() == btnSend || e.getSource() == txtInput) {
+			if (e.getSource() == btnSend || e.getSource() == txtInput) { // txtInput = 메시지창에 담겨있는 내용
 				String msg = null;
 				msg = String.format("[%s] %s\n", UserName, txtInput.getText());
 				SendMessage(msg); // send

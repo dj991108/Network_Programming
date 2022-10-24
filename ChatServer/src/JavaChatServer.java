@@ -106,9 +106,8 @@ public class JavaChatServer extends JFrame {
 		contentPane.add(btnServerStart);
 	}
 
-	
-							//   수정 부분   //
-	// 새로운 참가자 accept() 하고 user thread를 새로 생성한다.
+	// 새로운 참가자 accept() 하고 성공하면 user thread를 생성, 반환한다.
+	// 그 후 새로운 user thread를 만들기위해 대기상태
 	class AcceptServer extends Thread {
 		@SuppressWarnings("unchecked")
 		public void run() {
@@ -118,7 +117,7 @@ public class JavaChatServer extends JFrame {
 					client_socket = socket.accept(); // accept가 일어나기 전까지는 무한 대기중
 					AppendText("새로운 참가자 from " + client_socket);
 					// User 당 하나씩 Thread 생성
-					UserService new_user = new UserService(client_socket); // user thread 생성
+					UserService new_user = new UserService(client_socket); // user thread 생성 (accept로 받은 소켓을 인자로)
 					UserVec.add(new_user); // 새로운 참가자 배열에 추가
 					AppendText("사용자 입장. 현재 참가자 수 " + UserVec.size());
 					new_user.start(); // 만든 객체의 스레드 실행
@@ -144,10 +143,9 @@ public class JavaChatServer extends JFrame {
 		private DataOutputStream dos;
 		private Socket client_socket;
 		private Vector user_vc;
-		public String UserName = ""; // public으로 하여 외부참조 가능
-		// (귓속말) /to 다음에 있는 userName과 비교하여 찾아서 보낸다
-		// (list) UserName 리스트를 send 한다
-		
+		private String UserName = "";
+
+			// 새로운 유저 들어왔을때
 		public UserService(Socket client_socket) {
 			// TODO Auto-generated constructor stub
 			// 매개변수로 넘어온 자료 저장
@@ -159,17 +157,20 @@ public class JavaChatServer extends JFrame {
 				os = client_socket.getOutputStream();
 				dos = new DataOutputStream(os);
 				// line1 = dis.readUTF();
-				// /login user1 ==> msg[0] msg[1]    /login은 msg[0]에 user1은 msg[1]에
-				
+				// /login user1 ==> msg[0] msg[1]
 				byte[] b = new byte[BUF_LEN];
 				dis.read(b);
 				String line1 = new String(b);
 				String[] msg = line1.split(" ");
+				
+						// 접속 유저네임 저장
 				UserName = msg[1].trim();
 				AppendText("새로운 참가자 " + UserName + " 입장.");
 				WriteOne("Welcome to Java chat server\n");
 				WriteOne(UserName + "님 환영합니다.\n"); // 연결된 사용자에게 정상접속을 알림
-				// write all 구현
+				
+						// UserName을 WriteAll  -> 유저입장 알림
+				WriteAll("["+UserName+"] "+"님이 입장하셨습니다. \n");
 				
 			} catch (Exception e) {
 				AppendText("userService error");
@@ -179,6 +180,7 @@ public class JavaChatServer extends JFrame {
 		// 모든 User들에게 방송. 각각의 UserService Thread의 WriteONe() 을 호출한다.
 		public void WriteAll(String str) {
 			for (int i = 0; i < user_vc.size(); i++) {
+				// 여기에 뭔가 고쳐야하나?
 				UserService user = (UserService) user_vc.elementAt(i); // 각각의 유저 쓰레드에게
 				user.WriteOne(str);
 			}
@@ -207,7 +209,7 @@ public class JavaChatServer extends JFrame {
 			try {
 				// dos.writeUTF(msg);
 				byte[] bb;
-				bb = MakePacket(msg);
+				bb = MakePacket(msg);  // 윈도우 호완용
 				dos.write(bb, 0, bb.length); // send
 			} catch (IOException e) {
 				AppendText("dos.write() error");
@@ -219,8 +221,10 @@ public class JavaChatServer extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				// WriteAll("["+this.UserName+"] "+"님이 퇴장하셨습니다. \n"); // 맞을거같은데
+				
 				UserVec.removeElement(this); // 에러가난 현재 객체를 벡터에서 지운다
-				// 이때 writeall로 보내주기 구현
 				AppendText("사용자 퇴장. 현재 참가자 수 " + UserVec.size());
 			}
 		}
@@ -231,13 +235,19 @@ public class JavaChatServer extends JFrame {
 					// String msg = dis.readUTF();
 					byte[] b = new byte[BUF_LEN];
 					int ret;
-					ret = dis.read(b);
+					ret = dis.read(b); // 클라이언트가 보낸걸 읽는다
+					
 					if (ret < 0) {
 						AppendText("dis.read() < 0 error");
+						
 						try {
+									
 							dos.close();
 							dis.close();
 							client_socket.close();
+							
+							// WriteAll("["+this.UserName+"] "+"님이 퇴장하셨습니다. \n");
+		
 							UserVec.removeElement(this); // 에러가난 현재 객체를 벡터에서 지운다
 							AppendText("사용자 퇴장. 남은 참가자 수 " + UserVec.size());
 							break;
@@ -248,13 +258,22 @@ public class JavaChatServer extends JFrame {
 					String msg = new String(b, "euc-kr");
 					msg = msg.trim(); // 앞뒤 blank NULL, \n 모두 제거
 					AppendText(msg); // server 화면에 출력
-					WriteAll(msg + "\n"); // Write All
+					
+					// /exit 아닐때만 WriteAll
+					if(!msg.contains("/exit")) {
+						WriteAll(msg + "\n"); // Write All
+					}
+					
 				} catch (IOException e) {
+					// 퇴장 알림
+					WriteAll("["+this.UserName+"] "+"님이 퇴장하셨습니다. \n"); 
+					
 					AppendText("dis.read() error");
 					try {
 						dos.close();
 						dis.close();
 						client_socket.close();
+												
 						UserVec.removeElement(this); // 에러가난 현재 객체를 벡터에서 지운다
 						AppendText("사용자 퇴장. 남은 참가자 수 " + UserVec.size());
 						break;

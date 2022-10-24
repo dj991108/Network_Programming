@@ -6,30 +6,30 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Write"/>
+		<item key="selection" value="dis.read() error"/>
 		<list key="findhistory">
-			<item value="write"/>
-			<item value="msg"/>
-			<item value="UserService"/>
-			<item value="userS"/>
-			<item value="user"/>
-			<item value="accept"/>
-			<item value="View"/>
-			<item value="EXIT"/>
-			<item value="exit"/>
-			<item value="Username"/>
-			<item value="remove"/>
-			<item value="새로운"/>
+			<item value="dis.read() error"/>
+			<item value="dis.read"/>
+			<item value=" "/>
+			<item value="퇴장"/>
+			<item value="error"/>
+			<item value="현재"/>
+			<item value="현"/>
+			<item value="("/>
+			<item value="(0)"/>
+			<item value="사용자 퇴장"/>
+			<item value="남은"/>
+			<item value="입장"/>
 			<item value="writeone"/>
-			<item value="while문"/>
-			<item value="Accept"/>
+			<item value="Writeone"/>
+			<item value="Uservec"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1047"/>
-		<item key="DIALOG_Y_ORIGIN" value="114"/>
+		<item key="DIALOG_X_ORIGIN" value="1045"/>
+		<item key="DIALOG_Y_ORIGIN" value="248"/>
 		<item key="DIALOG_WIDTH" value="418"/>
 		<item key="DIALOG_HEIGHT" value="523"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
