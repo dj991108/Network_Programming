@@ -6,23 +6,23 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="dis.read() error"/>
+		<item key="selection" value="WriteOne"/>
 		<list key="findhistory">
-			<item value="dis.read() error"/>
-			<item value="dis.read"/>
-			<item value=" "/>
-			<item value="퇴장"/>
-			<item value="error"/>
-			<item value="현재"/>
-			<item value="현"/>
-			<item value="("/>
-			<item value="(0)"/>
-			<item value="사용자 퇴장"/>
-			<item value="남은"/>
-			<item value="입장"/>
 			<item value="writeone"/>
+			<item value="writeall"/>
+			<item value="Writeall"/>
+			<item value="exit"/>
+			<item value="vec"/>
+			<item value="list"/>
+			<item value="username"/>
+			<item value="userName"/>
+			<item value="error"/>
+			<item value="dos."/>
+			<item value="dos"/>
 			<item value="Writeone"/>
-			<item value="Uservec"/>
+			<item value="writeAll"/>
+			<item value="WriteAll"/>
+			<item value="Witeall"/>
 		</list>
 		<list key="replacehistory">
 		</list>

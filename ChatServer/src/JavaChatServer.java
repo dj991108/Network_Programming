@@ -284,7 +284,7 @@ public class JavaChatServer extends JFrame {
 						dis.close();
 						client_socket.close();
 																
-						UserVec.removeElement(this); // 에러가난 현재 객체를 벡터에서 지운다
+						UserVec.removeElement(this); // 에러가난 현재 객체를 벡터에서 지운다.
 						AppendText("사용자 퇴장. 남은 참가자 수 " + UserVec.size());
 						break;
 					} catch (Exception ee) {
