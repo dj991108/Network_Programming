@@ -265,53 +265,22 @@ public class JavaChatServer extends JFrame {
 					
 					String[] args = msg.split(" "); // 단어들을 분리
 					
-					// Enter만 입력된 경우 wakeup
-					if(args.length == 1) {
-						UserStatus = "O"; 
-					}
-					
-					// exit 퇴장
-					else if(args[1].matches("/exit")) {
+					// /exit 아닐때만 WriteAll	
+					if(msg.contains("/exit")) {
 						WriteAll("["+this.UserName+"] "+"님이 퇴장하셨습니다. \n");  
 					}
-					// /list
-					else if(args[1].matches("/list")) {
-						WriteOne("User list\n");
-						WriteOne("Name\tStatus\n");
-						WriteOne("---------------------------\n");
-						for(int i =0; i< user_vc.size(); i++) {
-							UserService user = (UserService) user_vc.elementAt(i);
-							WriteOne(user.UserName + "\t" + user.UserStatus + "\n");
+					// 미완성
+					else if(msg.contains("/to")) {
+						for (int i = 0; i < user_vc.size(); i++) {
+							UserService user = (UserService) user_vc.elementAt(i); // 각각의 유저 쓰레드에게
+							
+							if(msg.contains(user.UserName)) {
+								user.WriteOne(msg);
+							}	
 						}
-						WriteOne("---------------------------\n");
-					}
-					// /sleep
-					else if(args[1].matches("/sleep")) {
-						UserStatus = "S";
-					}
-					// /wakewup
-					else if(args[1].matches("/wakeup")) {
-						UserStatus = "O";
-					}
-					// 귓속말 /to
-					else if(args[1].matches("/to")) {
-						for(int i=0; i<user_vc.size(); i++) {
-							UserService user = (UserService) user_vc.elementAt(i);
-							if(user.UserName.matches(args[2]) && user.UserStatus.matches("O")) {
-								String msg2 = "";
-								for (int j = 3; j<args.length; j++) { // 실제 message 부분
-									msg2 += args[j];
-									if(j <args.length - 1) {
-										msg2 += " ";
-									}
-								}
-								user.WriteOne("[귓속말] " + args[0] + " " + msg2 + "\n");
-								break;
-							}
-						}
+						
 					}
 					else {
-						UserStatus = "O";
 						WriteAll(msg + "\n"); // Write All
 					}
 					
