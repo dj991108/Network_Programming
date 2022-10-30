@@ -6,23 +6,23 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="WriteOne"/>
+		<item key="selection" value="Pack"/>
 		<list key="findhistory">
-			<item value="writeone"/>
-			<item value="writeall"/>
+			<item value="pack"/>
+			<item value="pa"/>
+			<item value="/to"/>
+			<item value="icon"/>
+			<item value="Icon"/>
+			<item value="JTextPane"/>
+			<item value="J"/>
+			<item value="true"/>
+			<item value="run"/>
 			<item value="Writeall"/>
-			<item value="exit"/>
-			<item value="vec"/>
-			<item value="list"/>
-			<item value="username"/>
-			<item value="userName"/>
-			<item value="error"/>
-			<item value="dos."/>
-			<item value="dos"/>
-			<item value="Writeone"/>
-			<item value="writeAll"/>
-			<item value="WriteAll"/>
-			<item value="Witeall"/>
+			<item value="service"/>
+			<item value="serv"/>
+			<item value="os"/>
+			<item value="is"/>
+			<item value="writeone"/>
 		</list>
 		<list key="replacehistory">
 		</list>
