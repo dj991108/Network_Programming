@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class JavaObjClientMain extends JFrame {
 
 	/**
-	 * 
+	  
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -24,7 +24,7 @@ public class JavaObjClientMain extends JFrame {
 	private JTextField txtIpAddress;
 	private JTextField txtPortNumber;
 
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {

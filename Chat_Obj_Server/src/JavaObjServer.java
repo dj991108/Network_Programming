@@ -29,7 +29,7 @@ import javax.swing.SwingConstants;
 public class JavaObjServer extends JFrame {
 
 	/**
-	 * 
+	 Object 단위로 통신한다
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
