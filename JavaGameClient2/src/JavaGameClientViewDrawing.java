@@ -153,7 +153,7 @@ public class JavaGameClientViewDrawing extends JFrame {
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
 			// TODO Auto-generated method stub
-			if (e.getWheelRotation() < 0) { // 위로 올리는 경우 pen_size 증가
+			if (e.getWheelRotation() < 0) { // 위로 올리는 경우 pen_size 증가!
 				if (pen_size < 20)
 					pen_size++;
 			} else {
