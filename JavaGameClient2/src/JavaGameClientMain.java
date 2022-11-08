@@ -40,7 +40,7 @@ public class JavaGameClientMain extends JFrame {
 		});
 	}
 
-	/**
+	/*
 	 * Create the frame.
 	 */
 	public JavaGameClientMain() {
